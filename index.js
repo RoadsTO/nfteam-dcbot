@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const config = require('./config.json');
 
 const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS"] });
 
@@ -16,12 +15,12 @@ client.once('ready', () => {
     console.log('Connected');
     setRichPresence();
 
-    guild = client.guilds.cache.get(config.serverId);
-    channel = client.channels.cache.get(config.testChannel);
+    guild = client.guilds.cache.get(process.env.serverId);
+    channel = client.channels.cache.get(process.env.testChannel);
 })
 
 const setChannelNames = (guild) => {
-    const membersChannel = guild.channels.cache.get(config.membersChannelId);
+    const membersChannel = guild.channels.cache.get(process.env.membersChannelId);
     membersChannel.setName('Total members: '+guild.memberCount.toLocaleString());
 }
 
@@ -37,4 +36,4 @@ client.on('guildMemberRemove',
     setChannelNames(member.guild);
 });
 
-client.login(config.token);
+client.login(process.env.token);
