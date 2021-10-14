@@ -33,6 +33,14 @@ client.on('guildMemberAdd',
 
 client.on('guildMemberRemove', 
 (member) => {
+    let GoodByeEmbed = new Discord.MessageEmbed()
+    .setAuthor(`${member.user.tag} just left!`, member.user.avatarURL())
+    .setColor("FF0000");
+
+    const channel = client.channels.cache.find(channel => channel.id == '898192792629682177');
+
+    channel.send(GoodByeEmbed);
+
     setChannelNames(member.guild);
 });
 
