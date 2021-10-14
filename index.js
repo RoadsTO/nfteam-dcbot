@@ -31,16 +31,18 @@ client.on('guildMemberAdd',
     member.roles.add(defaultRole);
 });
 
+const GoodByeEmbed = (name, avatar) => {
+    return (new Discord.MessageEmbed()
+    .setColor('#e92262')
+    .setAuthor(name, avatar)
+    .setDescription('Left the server')
+    .setTimestamp());
+}
+
 client.on('guildMemberRemove', 
 (member) => {
-    let GoodByeEmbed = new Discord.MessageEmbed()
-    .setAuthor(`${member.user.tag} just left!`, member.user.avatarURL())
-    .setColor("FF0000");
-
     const channel = client.channels.cache.find(channel => channel.id == '898192792629682177');
-
-    channel.send(GoodByeEmbed);
-
+    channel.send({embeds: [GoodByeEmbed(member.user.tag, member.user.avatarURL())]});
     setChannelNames(member.guild);
 });
 
